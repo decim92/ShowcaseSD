@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="ShowcaseSD" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dil-J8-dVE">
+                                <rect key="frame" x="61" y="84" width="46" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="Om0-5E-e8k"/>
+                                    <constraint firstAttribute="width" constant="46" id="Yfh-cc-A1q"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DYu-5E-zeB">
+                                <rect key="frame" x="474" y="84" width="46" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="CrQ-rN-eMY"/>
+                                    <constraint firstAttribute="width" constant="46" id="spe-Bp-Dh9"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QSd-UG-6CN">
+                                <rect key="frame" x="474" y="523" width="46" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="46" id="PWA-Bk-uFd"/>
+                                    <constraint firstAttribute="height" constant="30" id="xWD-ud-PT0"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fZD-9H-5j0">
+                                <rect key="frame" x="61" y="517" width="46" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="E3g-Cd-cnY"/>
+                                    <constraint firstAttribute="width" constant="46" id="pDc-Ng-xNK"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="B3k-Zh-I6C">
+                                <rect key="frame" x="278" y="314" width="73" height="50"/>
+                                <color key="backgroundColor" red="0.015686274510000001" green="0.08235294118" blue="0.50588235290000005" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="73" id="Ir2-hl-uId"/>
+                                    <constraint firstAttribute="height" constant="50" id="htk-7y-08J"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="QSd-UG-6CN" secondAttribute="trailing" constant="60" id="1zu-7a-PYa"/>
+                            <constraint firstItem="fZD-9H-5j0" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="41" id="3nK-ZI-3S0"/>
+                            <constraint firstItem="Dil-J8-dVE" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="64" id="6Hx-jk-4Pt"/>
+                            <constraint firstItem="B3k-Zh-I6C" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" constant="14.5" id="AsT-a7-wLU"/>
+                            <constraint firstItem="Dil-J8-dVE" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="41" id="JgX-av-dsN"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="DYu-5E-zeB" secondAttribute="trailing" constant="60" id="LyW-IL-BDd"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="fZD-9H-5j0" secondAttribute="bottom" constant="53" id="WOV-JI-Bmk"/>
+                            <constraint firstItem="DYu-5E-zeB" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="64" id="iuk-L4-oNa"/>
+                            <constraint firstItem="B3k-Zh-I6C" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="39" id="tMO-bY-ovu"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="QSd-UG-6CN" secondAttribute="bottom" constant="47" id="vFN-yf-De8"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="btn2" destination="DYu-5E-zeB" id="sxP-h8-Tuu"/>
+                        <outlet property="btn3" destination="fZD-9H-5j0" id="O0l-jG-Myg"/>
+                        <outlet property="btn4" destination="QSd-UG-6CN" id="UvZ-r2-AuF"/>
+                        <outlet property="btnButton" destination="Dil-J8-dVE" id="vPr-CK-X3c"/>
+                        <outlet property="imagetest" destination="B3k-Zh-I6C" id="mcj-dC-UYc"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="370" y="223"/>
+        </scene>
+    </scenes>
+</document>
