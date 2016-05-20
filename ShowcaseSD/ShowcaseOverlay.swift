@@ -305,7 +305,7 @@ public class ShowcaseOverlay: UIView {
      */
     func onSkipButtonTapped(){
         self.removeAnimate()
-        print("Skipp in overlay pressed")
+        print("Skip  in overlay pressed")
         for(_, showcaseView) in showcaseViewArray.enumerate() {
             showcaseView.removeAnimate()
         }
