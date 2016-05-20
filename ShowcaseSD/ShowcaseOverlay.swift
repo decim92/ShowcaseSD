@@ -13,6 +13,7 @@ public class ShowcaseOverlay: UIView {
     // MARK: arrays
 
     var showcaseViewArray = [ShowcaseView]()
+    var rotationDegreesArray = [CGFloat]()
     
     // MARK: buttons definition
     
@@ -102,10 +103,11 @@ public class ShowcaseOverlay: UIView {
         super.init(coder: aDecoder)
     }
     
-    internal convenience init(showcaseViewArray: [ShowcaseView]) {
+    internal convenience init(showcaseViewArray: [ShowcaseView], rotationDegreesArray: [CGFloat]) {
         self.init()
         
         self.showcaseViewArray = showcaseViewArray
+        self.rotationDegreesArray = rotationDegreesArray
     }
     
     override public func layoutSubviews() {
@@ -152,12 +154,13 @@ public class ShowcaseOverlay: UIView {
         self.imgViewBack.hidden = true
         
         print("imgHand width: \(imgHand!.size.width) height: \(imgHand!.size.height)")
-        imgViewHand.frame = CGRectMake(self.showcaseViewArray[0].originX!, self.showcaseViewArray[0].originY! + 20, imgHand!.size.width / 3, imgHand!.size.height / 3)
+    
+        imgViewHand.frame = CGRectMake(self.showcaseViewArray[0].originX! + self.showcaseViewArray[0].newRadius! - imgViewHand.frame.width / 2, self.showcaseViewArray[0].originY! + self.showcaseViewArray[0].newRadius!, imgHand!.size.width / 3, imgHand!.size.height / 3)
+        imgViewHand.rotateToDegrees(rotationDegreesArray[0])
         addSubview(imgViewHand)
         
         imgViewHand.bloat()
-        imgViewHand.moveUp()
-        
+
         print("imgViewHand width: \(imgViewHand.frame.width) height: \(imgViewHand.frame.height)")
         
         print("screen width: \(UIScreen.mainScreen().bounds.width) height: \(UIScreen.mainScreen().bounds.height)")
@@ -253,6 +256,8 @@ public class ShowcaseOverlay: UIView {
                     imgViewGoOn.hidden = false
                     showcaseView.hidden = true
                     let nextShowcaseView = showcaseViewArray[showcaseViewArray.indexOf(showcaseView)! + 1]
+                    imgViewHand.rotateToDegrees(rotationDegreesArray[showcaseViewArray.indexOf(nextShowcaseView)!])
+                    setHandPositionInPoint(CGPoint(x: nextShowcaseView.originX! + nextShowcaseView.newRadius! - imgViewHand.frame.width / 2, y: nextShowcaseView.originY! + nextShowcaseView.newRadius!))
                     nextShowcaseView.hidden = false
                     if index == showcaseViewArray.count - 2 {
                         btnNext.hidden = true
@@ -280,6 +285,8 @@ public class ShowcaseOverlay: UIView {
                     imgViewBack.hidden = false
                     showcaseView.hidden = true
                     let previousShowcaseView = showcaseViewArray[showcaseViewArray.indexOf(showcaseView)! - 1]
+                    imgViewHand.rotateToDegrees(rotationDegreesArray[showcaseViewArray.indexOf(previousShowcaseView)!])
+                    setHandPositionInPoint(CGPoint(x: previousShowcaseView.originX! + previousShowcaseView.newRadius! - imgViewHand.frame.width / 2, y: previousShowcaseView.originY! + previousShowcaseView.newRadius!))
                     previousShowcaseView.hidden = false
                     if index == 1 {
                         btnPrevious.hidden = true
@@ -304,6 +311,11 @@ public class ShowcaseOverlay: UIView {
         }
     }
     
+    // MARK: Hand functionality
     
+    func setHandPositionInPoint(point: CGPoint){
+        imgViewHand.frame = CGRectMake(point.x, point.y, imgHand!.size.width / 3, imgHand!.size.height / 3)
+        imgViewHand.hidden = false
+    }
    
 }

@@ -82,7 +82,7 @@ class ViewController: UIViewController {
 //            self.showcaseOverlay.showInView(self.view, animated: true)
 //            self.showcaseOverlay.showcaseView = showcaseView
         
-        self.showcaseOverlay = ShowcaseOverlay(showcaseViewArray: [showcaseView!, showcaseView1!, showcaseView2!])
+        self.showcaseOverlay = ShowcaseOverlay(showcaseViewArray: [showcaseView!, showcaseView1!, showcaseView2!], rotationDegreesArray: [CGFloat(0), CGFloat(90), CGFloat(135)])
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -99,9 +99,9 @@ class ViewController: UIViewController {
         self.view.addSubview(showcaseView1!)
         self.view.addSubview(showcaseView2!)
 
-        showcaseView?.addArrowToFocusInPosition(self.imgViewLocateYourself, arrowPosition: REGION.TOP, offsetX: nil, offsetY: nil)
-        showcaseView1?.addArrowToFocusInPosition(self.imgViewStepOne, arrowPosition: REGION.TOP, offsetX: -20, offsetY: 20)
-        showcaseView2?.addArrowToFocusInPosition(self.imgViewWhoAreYou, arrowPosition: REGION.BOTTOM, offsetX: nil, offsetY: nil)
+        showcaseView?.addArrowToFocusInPosition(self.imgViewLocateYourself, arrowPosition: REGION.TOP, offsetX: nil, offsetY: nil, isNumber: false)
+        showcaseView1?.addArrowToFocusInPosition(self.imgViewStepOne, arrowPosition: REGION.TOP, offsetX: -20, offsetY: 20, isNumber: true)
+        showcaseView2?.addArrowToFocusInPosition(self.imgViewWhoAreYou, arrowPosition: REGION.BOTTOM, offsetX: nil, offsetY: nil, isNumber: false)
         
         self.showcaseOverlay?.showInView(self.view, animated: true)
     }
@@ -111,35 +111,6 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-//    func createOverlay(frame : CGRect)
-//    {
-//        let overlayView = UIView(frame: frame)
-//        overlayView.alpha = 0.6
-//        overlayView.backgroundColor = UIColor.blackColor()
-//        self.view.addSubview(overlayView)
-//        
-//        let maskLayer = CAShapeLayer()
-//        
-//        // Create a path with the rectangle in it.
-//        var path = CGPathCreateMutable()
-//        
-//        let radius : CGFloat = 50.0
-//        let xOffset : CGFloat = 10
-//        let yOffset : CGFloat = 10
-//        
-//        CGPathAddArc(path, nil, overlayView.frame.width/2 - radius/2 - xOffset, overlayView.frame.height/2 - yOffset, radius, 0.0, 2 * 3.14, false)
-//        CGPathAddRect(path, nil, CGRectMake(0, 0, overlayView.frame.width, overlayView.frame.height))
-//        
-//        
-//        maskLayer.backgroundColor = UIColor.blackColor().CGColor
-//        
-//        maskLayer.path = path;
-//        maskLayer.fillRule = kCAFillRuleEvenOdd
-//        
-//        // Release the path since it's not covered by ARC.
-//        overlayView.layer.mask = maskLayer
-//        overlayView.clipsToBounds = true
-//    }
     
     }
 

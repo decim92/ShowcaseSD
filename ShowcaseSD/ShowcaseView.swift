@@ -58,7 +58,7 @@ class ShowcaseView: UIView {
     var imgViewFocus = UIImageView()
     private var region: REGION?
     internal let minRadius: CGFloat = 25
-    let highlightThickness:CGFloat = 10
+    let highlightThickness:CGFloat = 0.6
     private var showcaseRect: CGRect?
     
     var originX:CGFloat?
@@ -206,7 +206,7 @@ class ShowcaseView: UIView {
             - offsetX: the quantity of displacement in X axis
             - offsetY: the quantity of displacement in Y axis
      */
-    func addArrowToFocusInPosition(imgArrow:UIImageView, arrowPosition: REGION, offsetX: CGFloat?, offsetY: CGFloat?) {
+    func addArrowToFocusInPosition(imgArrow:UIImageView, arrowPosition: REGION, offsetX: CGFloat?, offsetY: CGFloat?, isNumber: BooleanType) {
         
         self.arrows += [imgArrow]
         
@@ -244,7 +244,7 @@ class ShowcaseView: UIView {
             break
         }
         self.addSubview(imgArrow)
-//        imgArrow.shake()
+        
     }
     
     /**
@@ -279,15 +279,15 @@ class ShowcaseView: UIView {
                 CGContextSetFillColorWithColor(context, self.backgroundColor?.CGColor)
                 CGContextSetStrokeColorWithColor(context, self.highlightColor.CGColor)
                 // distance of highlight
-                CGContextAddArc(context, center.x, center.y, CGFloat(radius), 0, CGFloat(2 * M_PI), 0)
+                CGContextAddArc(context, center.x, center.y, CGFloat(radius + 7), 0, CGFloat(2 * M_PI), 0)
                 CGContextDrawPath(context, .FillStroke)
                 CGContextAddArc(context, center.x, center.y, CGFloat(radius), 0, CGFloat(2 * M_PI), 0)
                 CGContextDrawPath(context, .FillStroke)
             
                 // Clear circle
-                CGContextSetFillColorWithColor(context, UIColor.clearColor().CGColor)
-                CGContextSetBlendMode(context, .Clear)
-                CGContextAddArc(context, center.x, center.y, CGFloat(radius ), 0, CGFloat(2 * M_PI), 0)
+                CGContextSetFillColorWithColor(context, ShowcaseView.colorHexFromString("FFD140").CGColor)
+                CGContextSetBlendMode(context, .Normal)
+                CGContextAddArc(context, center.x, center.y, CGFloat(radius), 0, CGFloat(2 * M_PI), 0)
                 CGContextDrawPath(context, .Fill)
                 CGContextSetBlendMode(context, .Normal)
             
@@ -295,7 +295,7 @@ class ShowcaseView: UIView {
         imgViewFocus = UIImageView(image: UIGraphicsGetImageFromCurrentImageContext())
         imgViewFocus.translatesAutoresizingMaskIntoConstraints = true
         UIGraphicsEndImageContext()
-        imgViewFocus.alpha = 0.6
+        imgViewFocus.alpha = 0.7
         addSubview(imgViewFocus)
 
     }

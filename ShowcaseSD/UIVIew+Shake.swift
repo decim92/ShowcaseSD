@@ -40,13 +40,14 @@ extension UIView {
         
     }
     
-    func moveUp(){
+    // TODO:
+    func moveHorizontally(){
         let animation = CABasicAnimation(keyPath: "position")
-        animation.duration = 0.3
+        animation.duration = 1.0
         animation.repeatCount = Float.infinity
         animation.autoreverses = true
-        animation.fromValue = NSValue(CGPoint: CGPointMake(self.center.x, self.center.y))
-        animation.toValue = NSValue(CGPoint: CGPointMake(self.center.x, self.center.y - 5))
+        animation.fromValue = NSValue(CGPoint: CGPointMake(self.center.x - 50, self.center.y))
+        animation.toValue = NSValue(CGPoint: CGPointMake(self.center.x + 50, self.center.y))
         self.layer.addAnimation(animation, forKey: "position")
     }
     
@@ -57,5 +58,25 @@ extension UIView {
         animation.repeatCount = Float.infinity
         animation.autoreverses = true
         self.layer.addAnimation(animation, forKey: nil)
+    }
+    
+    func rotateToDegrees(degrees: CGFloat) {
+        
+        let radians = degreesToRadians(degrees)
+        
+        let
+        animation:CABasicAnimation = CABasicAnimation(keyPath: "transform.rotation")
+        animation.duration = 0.001
+        animation.repeatCount = 1
+        animation.fillMode = kCAFillModeForwards;
+        animation.removedOnCompletion = false;
+        animation.fromValue = CGFloat(0.0)
+        animation.toValue = CGFloat(radians)
+        self.layer.addAnimation(animation, forKey: nil)
+        
+    }
+    
+    func degreesToRadians(degrees: CGFloat) -> CGFloat{
+        return degrees * CGFloat(M_PI) / 180
     }
 }
