@@ -8,6 +8,17 @@
 
 import UIKit
 
+public enum HANDPOSITION: CGFloat {
+    case SOUTH = 0.0
+    case NORTHEAST = -135.0
+    case EAST = -90.0
+    case SOUTHEAST = -45.0
+    case SOUTHWEST = 45.0
+    case WEST = 90.0
+    case NORTHWEST = 135.0
+    case NORTH = 180.0
+}
+
 public class ShowcaseOverlay: UIView {
     
     // MARK: arrays
@@ -334,8 +345,11 @@ public class ShowcaseOverlay: UIView {
         
         let newXPosition = calculateNewXValueOfHand(degrees)
         let newYPosition = calculateNewYValueOfHand(degrees)
+        var offsetY:CGFloat = 0.0
+        if degrees == 180 || degrees == -180{
+            offsetY = imgViewHand.frame.size.height / 3        }
         
-        imgViewHand.frame = CGRectMake(newXPosition, newYPosition, imgHand!.size.width / 3, imgHand!.size.height / 3)
+        imgViewHand.frame = CGRectMake(newXPosition, newYPosition - offsetY, imgHand!.size.width / 3, imgHand!.size.height / 3)
         imgViewHand.hidden = false
 
     }
@@ -343,7 +357,7 @@ public class ShowcaseOverlay: UIView {
     //Inverted axis effect
     func calculateNewYValueOfHand(degrees:CGFloat) -> CGFloat{
         let cosinus = cos(degrees)
-        let offset = imgViewHand.frame.size.height * 1 / 6
+        var offset = imgViewHand.frame.size.height * 1 / 6
         let radius = imgViewHand.frame.size.height / 2
         print("Cosinus: \(cosinus)")
         print("Degrees: \(degrees)")
@@ -351,6 +365,9 @@ public class ShowcaseOverlay: UIView {
         var newYValue = imgViewHand.frame.origin.y
         print("Y: \(newYValue)")
         if cosinus != 1.0 {
+            if cosinus > 0.5 {
+                offset = 0.0
+            }
             newYValue = offset + newYValue - radius + cosinus * radius
         }
         print("Y: \(newYValue)")
@@ -359,18 +376,24 @@ public class ShowcaseOverlay: UIView {
     
     //Inverted axis effect
     func calculateNewXValueOfHand(degrees:CGFloat) -> CGFloat{
-        let sinus = sin(degrees)
+        let sinus = sin(Double(degrees))
+        print("Sinus: \(sinus)")
         let radius = imgViewHand.frame.size.height / 2
-        let offset = imgViewHand.frame.size.height * 1 / 6
+        var offset = imgViewHand.frame.size.height * 1 / 6
         var newXValue = imgViewHand.frame.origin.x
-        
-        if sinus != 0.0{
+        print("X: \(newXValue)")
+
+        if sinus != 0.0 && degrees != 180 && degrees != -180{
+            if sinus > 0.5 {
+                offset = 0.0
+            }
             if sinus > 0 {
-                newXValue = -offset + newXValue - sinus * radius
+                newXValue = -offset + newXValue - CGFloat(sinus) * radius
             }else if sinus < 0 {
-                newXValue = offset + newXValue + -1 * sinus * radius
+                newXValue = offset + newXValue + -1 * CGFloat(sinus) * radius
             }
         }
+        print("X: \(newXValue)")
         return newXValue
     }
    
