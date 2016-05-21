@@ -60,6 +60,7 @@ extension UIView {
         self.layer.addAnimation(animation, forKey: nil)
     }
     
+    //Degrees range from 0 to 180 and 0 to -180
     func rotateToDegrees(degrees: CGFloat) {
         
         let radians = degreesToRadians(degrees)

@@ -82,7 +82,7 @@ class ViewController: UIViewController {
 //            self.showcaseOverlay.showInView(self.view, animated: true)
 //            self.showcaseOverlay.showcaseView = showcaseView
         
-        self.showcaseOverlay = ShowcaseOverlay(showcaseViewArray: [showcaseView!, showcaseView1!, showcaseView2!], rotationDegreesArray: [CGFloat(0), CGFloat(90), CGFloat(135)])
+        self.showcaseOverlay = ShowcaseOverlay(showcaseViewArray: [showcaseView!, showcaseView1!, showcaseView2!], rotationDegreesArray: [CGFloat(0), CGFloat(-90), CGFloat(-135)])
     }
     
     override func viewDidAppear(animated: Bool) {

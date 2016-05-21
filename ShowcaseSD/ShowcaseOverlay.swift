@@ -156,7 +156,10 @@ public class ShowcaseOverlay: UIView {
         print("imgHand width: \(imgHand!.size.width) height: \(imgHand!.size.height)")
     
         imgViewHand.frame = CGRectMake(self.showcaseViewArray[0].originX! + self.showcaseViewArray[0].newRadius! - imgViewHand.frame.width / 2, self.showcaseViewArray[0].originY! + self.showcaseViewArray[0].newRadius!, imgHand!.size.width / 3, imgHand!.size.height / 3)
+        
         imgViewHand.rotateToDegrees(rotationDegreesArray[0])
+        
+        repositionHandForRotationDegrees(rotationDegreesArray[0])
         addSubview(imgViewHand)
         
         imgViewHand.bloat()
@@ -256,8 +259,13 @@ public class ShowcaseOverlay: UIView {
                     imgViewGoOn.hidden = false
                     showcaseView.hidden = true
                     let nextShowcaseView = showcaseViewArray[showcaseViewArray.indexOf(showcaseView)! + 1]
+                    
                     imgViewHand.rotateToDegrees(rotationDegreesArray[showcaseViewArray.indexOf(nextShowcaseView)!])
+                    
                     setHandPositionInPoint(CGPoint(x: nextShowcaseView.originX! + nextShowcaseView.newRadius! - imgViewHand.frame.width / 2, y: nextShowcaseView.originY! + nextShowcaseView.newRadius!))
+                    
+                    repositionHandForRotationDegrees(rotationDegreesArray[showcaseViewArray.indexOf(nextShowcaseView)!])
+                    
                     nextShowcaseView.hidden = false
                     if index == showcaseViewArray.count - 2 {
                         btnNext.hidden = true
@@ -285,8 +293,12 @@ public class ShowcaseOverlay: UIView {
                     imgViewBack.hidden = false
                     showcaseView.hidden = true
                     let previousShowcaseView = showcaseViewArray[showcaseViewArray.indexOf(showcaseView)! - 1]
+                    
                     imgViewHand.rotateToDegrees(rotationDegreesArray[showcaseViewArray.indexOf(previousShowcaseView)!])
+                    
                     setHandPositionInPoint(CGPoint(x: previousShowcaseView.originX! + previousShowcaseView.newRadius! - imgViewHand.frame.width / 2, y: previousShowcaseView.originY! + previousShowcaseView.newRadius!))
+                    repositionHandForRotationDegrees(rotationDegreesArray[showcaseViewArray.indexOf(previousShowcaseView)!])
+                    
                     previousShowcaseView.hidden = false
                     if index == 1 {
                         btnPrevious.hidden = true
@@ -315,7 +327,51 @@ public class ShowcaseOverlay: UIView {
     
     func setHandPositionInPoint(point: CGPoint){
         imgViewHand.frame = CGRectMake(point.x, point.y, imgHand!.size.width / 3, imgHand!.size.height / 3)
+    }
+    
+    //Degrees range from 0 to 180 and 0 to -180
+    func repositionHandForRotationDegrees(degrees:CGFloat){
+        
+        let newXPosition = calculateNewXValueOfHand(degrees)
+        let newYPosition = calculateNewYValueOfHand(degrees)
+        
+        imgViewHand.frame = CGRectMake(newXPosition, newYPosition, imgHand!.size.width / 3, imgHand!.size.height / 3)
         imgViewHand.hidden = false
+
+    }
+    
+    //Inverted axis effect
+    func calculateNewYValueOfHand(degrees:CGFloat) -> CGFloat{
+        let cosinus = cos(degrees)
+        let offset = imgViewHand.frame.size.height * 1 / 6
+        let radius = imgViewHand.frame.size.height / 2
+        print("Cosinus: \(cosinus)")
+        print("Degrees: \(degrees)")
+        print("Radius: \(radius)")
+        var newYValue = imgViewHand.frame.origin.y
+        print("Y: \(newYValue)")
+        if cosinus != 1.0 {
+            newYValue = offset + newYValue - radius + cosinus * radius
+        }
+        print("Y: \(newYValue)")
+        return newYValue
+    }
+    
+    //Inverted axis effect
+    func calculateNewXValueOfHand(degrees:CGFloat) -> CGFloat{
+        let sinus = sin(degrees)
+        let radius = imgViewHand.frame.size.height / 2
+        let offset = imgViewHand.frame.size.height * 1 / 6
+        var newXValue = imgViewHand.frame.origin.x
+        
+        if sinus != 0.0{
+            if sinus > 0 {
+                newXValue = -offset + newXValue - sinus * radius
+            }else if sinus < 0 {
+                newXValue = offset + newXValue + -1 * sinus * radius
+            }
+        }
+        return newXValue
     }
    
 }
