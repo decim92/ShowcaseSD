@@ -206,7 +206,7 @@ class ShowcaseView: UIView {
             - offsetX: the quantity of displacement in X axis
             - offsetY: the quantity of displacement in Y axis
      */
-    func addArrowToFocusInPosition(imgArrow:UIImageView, arrowPosition: REGION, offsetX: CGFloat?, offsetY: CGFloat?, isNumber: BooleanType) {
+    func addArrowToFocusInPosition(imgArrow:UIImageView, arrowPosition: REGION, offsetX: CGFloat?, offsetY: CGFloat?) {
         
         self.arrows += [imgArrow]
         
@@ -243,6 +243,7 @@ class ShowcaseView: UIView {
             
             break
         }
+        imgArrow.alpha = 0.0
         self.addSubview(imgArrow)
         
     }
@@ -345,52 +346,28 @@ class ShowcaseView: UIView {
         });
     }
     
-    /**
-     Called when the overlay is meant to dissapear of the screen.
-     
-     - Parameters:
-     - sender: The one who has to dissapear from the screen.
-     */
-    func closePopup(sender: AnyObject) {
-        self.removeAnimate()
+    func showSubViewsWithAnimation(){
+        for (index, subview) in subviews.enumerate() {
+            if index == 0 {
+            } else if index == 1 {
+                subview.alpha = 1.0
+            } else {
+                UIView.animateWithDuration(0.5, delay: 0.5, options:  [], animations: {
+                        subview.alpha = 1.0
+                    }, completion: nil)
+            }
+        }
     }
     
-    // MARK: Button's Actions
-    
-    /**
-     btnNext's event listener to iterate forward showcase views
-     
-     - Parameters:
-     - showcaseView: The current visible showcaseView reference
-     */
-    func onNextButtonTapped(showcaseView: ShowcaseView){
-//        self.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.6)
-//        self.imgViewFocus.removeFromSuperview()
-//        
-//        for (_, arrow) in arrows.enumerate() {
-//            arrow.removeFromSuperview()
-//        }
+    func hideSubViews(){
+        for (index, subview) in subviews.enumerate() {
+            if index == 0 {
+            } else {
+                subview.alpha = 0.0
+            }
+        }
     }
     
-    /**
-     btnPrevious's event listener to iterate backwards showcase views
-     
-     - Parameters:
-     - showcaseView: The current visible showcaseView reference
-     */
-    func onPreviousButtonTapped(showcaseView: ShowcaseView){
-        
-    }
-    
-    /**
-     btnSkip's event listener to close the overlay
-     
-     - Parameters:
-     - button: The button's reference from the addTarget assignation
-     */
-    func onSkipButtonTapped(){
-//        self.removeAnimate()
-    }
 
     internal static func colorHexFromString(colorString: String) -> UIColor {
         let hex = colorString.stringByTrimmingCharactersInSet(NSCharacterSet.alphanumericCharacterSet().invertedSet)

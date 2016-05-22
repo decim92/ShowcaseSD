@@ -98,10 +98,10 @@ class ViewController: UIViewController {
         self.view.addSubview(showcaseView!)
         self.view.addSubview(showcaseView1!)
         self.view.addSubview(showcaseView2!)
-
-        showcaseView?.addArrowToFocusInPosition(self.imgViewLocateYourself, arrowPosition: REGION.TOP, offsetX: nil, offsetY: nil, isNumber: false)
-        showcaseView1?.addArrowToFocusInPosition(self.imgViewStepOne, arrowPosition: REGION.TOP, offsetX: -20, offsetY: 20, isNumber: true)
-        showcaseView2?.addArrowToFocusInPosition(self.imgViewWhoAreYou, arrowPosition: REGION.BOTTOM, offsetX: nil, offsetY: nil, isNumber: false)
+        
+        showcaseView?.addArrowToFocusInPosition(self.imgViewStepOne, arrowPosition: REGION.TOP, offsetX: -20, offsetY: 20)
+        showcaseView?.addArrowToFocusInPosition(self.imgViewLocateYourself, arrowPosition: REGION.TOP, offsetX: nil, offsetY: nil)
+        showcaseView?.addArrowToFocusInPosition(self.imgViewWhoAreYou, arrowPosition: REGION.BOTTOM, offsetX: nil, offsetY: nil)
         
         self.showcaseOverlay?.showInView(self.view, animated: true)
     }

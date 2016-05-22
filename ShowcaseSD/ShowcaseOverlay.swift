@@ -161,6 +161,7 @@ public class ShowcaseOverlay: UIView {
         container.trailingAnchor.constraintEqualToAnchor(margins.trailingAnchor).active = true
         
         self.showcaseViewArray[0].hidden = false
+        self.showcaseViewArray[0].showSubViewsWithAnimation()
         self.btnPrevious.hidden = true
         self.imgViewBack.hidden = true
         
@@ -172,6 +173,11 @@ public class ShowcaseOverlay: UIView {
         
         repositionHandForRotationDegrees(rotationDegreesArray[0])
         addSubview(imgViewHand)
+        imgViewHand.alpha = 0.0
+        
+        UIView.animateWithDuration(0.5, delay: 1.0, options: [], animations: {
+            self.imgViewHand.alpha = 1.0
+        }, completion: nil)
         
         imgViewHand.bloat()
 
@@ -269,6 +275,7 @@ public class ShowcaseOverlay: UIView {
                     btnNext.hidden = false
                     imgViewGoOn.hidden = false
                     showcaseView.hidden = true
+                    showcaseView.hideSubViews()
                     let nextShowcaseView = showcaseViewArray[showcaseViewArray.indexOf(showcaseView)! + 1]
                     
                     imgViewHand.rotateToDegrees(rotationDegreesArray[showcaseViewArray.indexOf(nextShowcaseView)!])
@@ -278,6 +285,7 @@ public class ShowcaseOverlay: UIView {
                     repositionHandForRotationDegrees(rotationDegreesArray[showcaseViewArray.indexOf(nextShowcaseView)!])
                     
                     nextShowcaseView.hidden = false
+                    nextShowcaseView.showSubViewsWithAnimation()
                     if index == showcaseViewArray.count - 2 {
                         btnNext.hidden = true
                         imgViewGoOn.hidden = true
@@ -303,6 +311,7 @@ public class ShowcaseOverlay: UIView {
                     btnPrevious.hidden = false
                     imgViewBack.hidden = false
                     showcaseView.hidden = true
+                    showcaseView.hideSubViews()
                     let previousShowcaseView = showcaseViewArray[showcaseViewArray.indexOf(showcaseView)! - 1]
                     
                     imgViewHand.rotateToDegrees(rotationDegreesArray[showcaseViewArray.indexOf(previousShowcaseView)!])
@@ -311,6 +320,7 @@ public class ShowcaseOverlay: UIView {
                     repositionHandForRotationDegrees(rotationDegreesArray[showcaseViewArray.indexOf(previousShowcaseView)!])
                     
                     previousShowcaseView.hidden = false
+                    previousShowcaseView.showSubViewsWithAnimation()
                     if index == 1 {
                         btnPrevious.hidden = true
                         imgViewBack.hidden = true
@@ -342,7 +352,7 @@ public class ShowcaseOverlay: UIView {
     
     //Degrees range from 0 to 180 and 0 to -180
     func repositionHandForRotationDegrees(degrees:CGFloat){
-        
+        imgViewHand.alpha = 0.0
         let newXPosition = calculateNewXValueOfHand(degrees)
         let newYPosition = calculateNewYValueOfHand(degrees)
         var offsetY:CGFloat = 0.0
@@ -350,7 +360,9 @@ public class ShowcaseOverlay: UIView {
             offsetY = imgViewHand.frame.size.height / 3        }
         
         imgViewHand.frame = CGRectMake(newXPosition, newYPosition - offsetY, imgHand!.size.width / 3, imgHand!.size.height / 3)
-        imgViewHand.hidden = false
+        UIView.animateKeyframesWithDuration(0.5, delay: 1.0, options: [], animations: {
+                self.imgViewHand.alpha = 1.0
+            }, completion: nil)
 
     }
     
