@@ -38,6 +38,8 @@ public class ShowcaseOverlay: UIView {
     let imgPrevious = UIImage(named: "btn_previous_arrow")
     let imgNext = UIImage(named: "btn_next_arrow")
     let imgSkip = UIImage(named: "btn_skip")
+    let imgBack = UIImage(named: "back")
+    let imgGoOn = UIImage(named: "goOn")
     
     // MARK: images
     
@@ -63,44 +65,49 @@ public class ShowcaseOverlay: UIView {
         
         // Define the skip button's image, target and add it to the view
         
-        btnSkip.frame = CGRectMake(UIScreen.mainScreen().bounds.width / 2 - imgSkip!.size.width / 2, UIScreen.mainScreen().bounds.height - 20 - imgSkip!.size.height, imgSkip!.size.width, imgSkip!.size.height)
+        btnSkip.frame = CGRectMake(UIScreen.mainScreen().bounds.width / 2 - imgSkip!.size.width / 2, UIScreen.mainScreen().bounds.height - 30 - imgSkip!.size.height, imgSkip!.size.width, imgSkip!.size.height)
         btnSkip.setImage(imgSkip, forState: .Normal)
         btnSkip.adjustsImageWhenHighlighted = false
-        btnSkip.translatesAutoresizingMaskIntoConstraints = false
+        btnSkip.translatesAutoresizingMaskIntoConstraints = true
         btnSkip.addTarget(self, action: #selector(ShowcaseOverlay.onSkipButtonTapped), forControlEvents: .TouchDown)
         addSubview(btnSkip)
         
         // Define the previous button's image, target and add it to the view
         
+        btnPrevious.frame = CGRectMake(16, UIScreen.mainScreen().bounds.height - 40 - imgPrevious!.size.height, imgPrevious!.size.width, imgPrevious!.size.height)
         btnPrevious.setImage(imgPrevious, forState: .Normal)
         btnPrevious.adjustsImageWhenHighlighted = false
-        btnPrevious.translatesAutoresizingMaskIntoConstraints = false
+        btnPrevious.translatesAutoresizingMaskIntoConstraints = true
         btnPrevious.addTarget(self, action: #selector(ShowcaseOverlay.onPreviousButtonTapped(_:)), forControlEvents: .TouchDown)
         addSubview(btnPrevious)
         
         // Define the next button's image, target and add it to the view
         
+        btnNext.frame = CGRectMake(UIScreen.mainScreen().bounds.width - 16 - imgNext!.size.width, UIScreen.mainScreen().bounds.height - 40 - imgNext!.size.height, imgNext!.size.width, imgNext!.size.height)
         btnNext.setImage(imgNext, forState: .Normal)
         btnNext.adjustsImageWhenHighlighted = false
-        btnNext.translatesAutoresizingMaskIntoConstraints = false
+        btnNext.translatesAutoresizingMaskIntoConstraints = true
         btnNext.addTarget(self, action: #selector(ShowcaseOverlay.onNextButtonTapped(_:)), forControlEvents: .TouchDown)
         addSubview(btnNext)
         
-       
+        
         // Define an UIImageView as component below btnPrevious (used to add an image as text to the button)
         
-//        imgViewBack  = UIImageView(frame:CGRectMake(0, 0, 80, 30));
-        imgViewBack.image = UIImage(named: "back")
+        //        imgViewBack  = UIImageView(frame:CGRectMake(0, 0, 80, 30));
+        imgViewBack.frame = CGRectMake(btnPrevious.frame.origin.x + (btnPrevious.frame.width - imgBack!.size.width) / 2, btnPrevious.frame.origin.y + btnPrevious.frame.height + 8, imgBack!.size.width, imgBack!.size.height)
+        imgViewBack.image = imgBack
         imgViewBack.contentMode = UIViewContentMode.ScaleAspectFit
-        imgViewBack.translatesAutoresizingMaskIntoConstraints = false
+        imgViewBack.translatesAutoresizingMaskIntoConstraints = true
         addSubview(imgViewBack)
         
         // Define an UIImageView as component below btnNext (used to add an image as text to the button)
-
-//        imgViewGoOn = UIImageView(frame:CGRectMake(0, 0, 80, 30));
-        imgViewGoOn.image = UIImage(named: "goOn")
+        
+        //        imgViewGoOn = UIImageView(frame:CGRectMake(0, 0, 80, 30));
+        
+        imgViewGoOn.frame = CGRectMake(btnNext.frame.origin.x + (btnNext.frame.width - imgGoOn!.size.width) / 2, btnNext.frame.origin.y + btnNext.frame.height + 8, imgGoOn!.size.width, imgGoOn!.size.height)
+        imgViewGoOn.image = imgGoOn
         imgViewGoOn.contentMode = UIViewContentMode.ScaleAspectFit
-        imgViewGoOn.translatesAutoresizingMaskIntoConstraints = false
+        imgViewGoOn.translatesAutoresizingMaskIntoConstraints = true
         addSubview(imgViewGoOn)
         
         imgViewHand.image = imgHand!
@@ -127,40 +134,40 @@ public class ShowcaseOverlay: UIView {
         
         // Get the superview's layout
 
-        let margins = self.layoutMarginsGuide
-        
-        let container = UILayoutGuide()
-        self.addLayoutGuide(container)
-        
-        // Generating the initial constraints
-        
-        btnPrevious.leadingAnchor.constraintEqualToAnchor(container.leadingAnchor).active = true
-        btnPrevious.widthAnchor.constraintEqualToAnchor(btnSkip.widthAnchor).active = true
-        btnPrevious.bottomAnchor.constraintEqualToAnchor(imgViewBack.topAnchor).active = true
-        
-        btnSkip.leadingAnchor.constraintEqualToAnchor(btnPrevious.trailingAnchor).active = true
-        btnSkip.trailingAnchor.constraintEqualToAnchor(btnNext.leadingAnchor).active = true
-        btnSkip.centerXAnchor.constraintEqualToAnchor(container.centerXAnchor).active = true
-        btnSkip.centerYAnchor.constraintEqualToAnchor(btnPrevious.bottomAnchor).active = true
-        
-        btnNext.trailingAnchor.constraintEqualToAnchor(container.trailingAnchor).active = true
-        btnNext.bottomAnchor.constraintEqualToAnchor(btnPrevious.bottomAnchor).active = true
-        btnNext.widthAnchor.constraintEqualToAnchor(btnPrevious.widthAnchor).active = true
-        
-        imgViewBack.centerXAnchor.constraintEqualToAnchor(btnPrevious.centerXAnchor).active = true
-        imgViewBack.bottomAnchor.constraintEqualToAnchor(margins.bottomAnchor, constant: -20).active = true
-        imgViewBack.leadingAnchor.constraintEqualToAnchor(btnPrevious.leadingAnchor).active = true
-        imgViewBack.trailingAnchor.constraintEqualToAnchor(btnPrevious.trailingAnchor).active = true
-
-        imgViewGoOn.centerXAnchor.constraintEqualToAnchor(btnNext.centerXAnchor).active = true
-        imgViewGoOn.bottomAnchor.constraintEqualToAnchor(imgViewBack.bottomAnchor).active = true
-        imgViewGoOn.leadingAnchor.constraintEqualToAnchor(btnNext.leadingAnchor).active = true
-        imgViewGoOn.trailingAnchor.constraintEqualToAnchor(btnNext.trailingAnchor).active = true
-
-        
-        container.centerYAnchor.constraintEqualToAnchor(margins.centerYAnchor).active = true
-        container.leadingAnchor.constraintEqualToAnchor(margins.leadingAnchor).active = true
-        container.trailingAnchor.constraintEqualToAnchor(margins.trailingAnchor).active = true
+//        let margins = self.layoutMarginsGuide
+//        
+//        let container = UILayoutGuide()
+//        self.addLayoutGuide(container)
+//        
+//        // Generating the initial constraints
+//        
+//        btnPrevious.leadingAnchor.constraintEqualToAnchor(container.leadingAnchor).active = true
+//        btnPrevious.widthAnchor.constraintEqualToAnchor(btnSkip.widthAnchor).active = true
+//        btnPrevious.bottomAnchor.constraintEqualToAnchor(imgViewBack.topAnchor).active = true
+//        
+//        btnSkip.leadingAnchor.constraintEqualToAnchor(btnPrevious.trailingAnchor).active = true
+//        btnSkip.trailingAnchor.constraintEqualToAnchor(btnNext.leadingAnchor).active = true
+//        btnSkip.centerXAnchor.constraintEqualToAnchor(container.centerXAnchor).active = true
+//        btnSkip.centerYAnchor.constraintEqualToAnchor(btnPrevious.bottomAnchor).active = true
+//        
+//        btnNext.trailingAnchor.constraintEqualToAnchor(container.trailingAnchor).active = true
+//        btnNext.bottomAnchor.constraintEqualToAnchor(btnPrevious.bottomAnchor).active = true
+//        btnNext.widthAnchor.constraintEqualToAnchor(btnPrevious.widthAnchor).active = true
+//        
+//        imgViewBack.centerXAnchor.constraintEqualToAnchor(btnPrevious.centerXAnchor).active = true
+//        imgViewBack.bottomAnchor.constraintEqualToAnchor(margins.bottomAnchor, constant: -20).active = true
+//        imgViewBack.leadingAnchor.constraintEqualToAnchor(btnPrevious.leadingAnchor).active = true
+//        imgViewBack.trailingAnchor.constraintEqualToAnchor(btnPrevious.trailingAnchor).active = true
+//
+//        imgViewGoOn.centerXAnchor.constraintEqualToAnchor(btnNext.centerXAnchor).active = true
+//        imgViewGoOn.bottomAnchor.constraintEqualToAnchor(imgViewBack.bottomAnchor).active = true
+//        imgViewGoOn.leadingAnchor.constraintEqualToAnchor(btnNext.leadingAnchor).active = true
+//        imgViewGoOn.trailingAnchor.constraintEqualToAnchor(btnNext.trailingAnchor).active = true
+//
+//        
+//        container.centerYAnchor.constraintEqualToAnchor(margins.centerYAnchor).active = true
+//        container.leadingAnchor.constraintEqualToAnchor(margins.leadingAnchor).active = true
+//        container.trailingAnchor.constraintEqualToAnchor(margins.trailingAnchor).active = true
         
         self.showcaseViewArray[0].hidden = false
         self.showcaseViewArray[0].showSubViewsWithAnimation()

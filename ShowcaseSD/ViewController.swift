@@ -64,23 +64,10 @@ class ViewController: UIViewController {
         self.imgViewStepOne.contentMode = UIViewContentMode.ScaleAspectFit
         self.imgViewStepOne.translatesAutoresizingMaskIntoConstraints = true
         
-//        self.view.addSubview(self.imgViewLocateYourself)
-//
-//        self.imgViewBack.frame = CGRectMake(100, 100, 50, 50)
-//        
-//        self.imgArrow = UIImageView(frame:CGRectMake(75, 150, 50, 50))
-//        self.imgArrow.image = UIImage(named: "arrow_who_are_you")
-//        self.imgArrow.contentMode = UIViewContentMode.ScaleAspectFit
-//        self.view.addSubview(imgArrow)
-        
-        // self.showcaseOverlay.showInView(self.view, animated: true)
         
         showcaseView = ShowcaseView(containerView: self.view)
         showcaseView1 = ShowcaseView(containerView: self.view)
         showcaseView2 = ShowcaseView(containerView: self.view)
-//            showcaseView?.setFocusPositionInView(btn4)
-//            self.showcaseOverlay.showInView(self.view, animated: true)
-//            self.showcaseOverlay.showcaseView = showcaseView
         
         self.showcaseOverlay = ShowcaseOverlay(showcaseViewArray: [showcaseView!, showcaseView1!, showcaseView2!], rotationDegreesArray: [HANDPOSITION.SOUTH.rawValue, HANDPOSITION.EAST.rawValue, HANDPOSITION.WEST.rawValue])
     }
