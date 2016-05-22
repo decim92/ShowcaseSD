@@ -25,6 +25,7 @@ public class ShowcaseOverlay: UIView {
 
     var showcaseViewArray = [ShowcaseView]()
     var rotationDegreesArray = [CGFloat]()
+    var imgViewTouch = [UIImageView]()
     
     // MARK: buttons definition
     
@@ -119,6 +120,7 @@ public class ShowcaseOverlay: UIView {
         
         self.showcaseViewArray = showcaseViewArray
         self.rotationDegreesArray = rotationDegreesArray
+        
     }
     
     override public func layoutSubviews() {
@@ -216,6 +218,16 @@ public class ShowcaseOverlay: UIView {
         
         btnNext.shakeFromDown()
         btnPrevious.shakeFromUp()
+        
+        for (index,showcase) in showcaseViewArray.enumerate() {
+            imgViewTouch.append(UIImageView(frame: showcase.showcaseRect!))
+            if index == 0{
+                imgViewTouch[index].userInteractionEnabled = true
+            }
+            imgViewTouch[index].alpha = 0.1
+            imgViewTouch[index].addGestureRecognizer(self.getGesture())
+            addSubview(imgViewTouch[index])
+        }
     }
     
     /**
@@ -265,7 +277,7 @@ public class ShowcaseOverlay: UIView {
         - Parameters:
             - showcaseView: The current visible showcaseView reference
     */
-    func onNextButtonTapped(showcaseView: ShowcaseView){
+    func onNextButtonTapped(sender: UITapGestureRecognizer){
 //        self.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.6)
         btnPrevious.hidden = false
         imgViewBack.hidden = false
@@ -276,6 +288,7 @@ public class ShowcaseOverlay: UIView {
                     imgViewGoOn.hidden = false
                     showcaseView.hidden = true
                     showcaseView.hideSubViews()
+                    imgViewTouch[index].userInteractionEnabled = false
                     let nextShowcaseView = showcaseViewArray[showcaseViewArray.indexOf(showcaseView)! + 1]
                     
                     imgViewHand.rotateToDegrees(rotationDegreesArray[showcaseViewArray.indexOf(nextShowcaseView)!])
@@ -286,6 +299,7 @@ public class ShowcaseOverlay: UIView {
                     
                     nextShowcaseView.hidden = false
                     nextShowcaseView.showSubViewsWithAnimation()
+                    imgViewTouch[index + 1].userInteractionEnabled = true
                     if index == showcaseViewArray.count - 2 {
                         btnNext.hidden = true
                         imgViewGoOn.hidden = true
@@ -312,6 +326,7 @@ public class ShowcaseOverlay: UIView {
                     imgViewBack.hidden = false
                     showcaseView.hidden = true
                     showcaseView.hideSubViews()
+                    imgViewTouch[index].userInteractionEnabled = false
                     let previousShowcaseView = showcaseViewArray[showcaseViewArray.indexOf(showcaseView)! - 1]
                     
                     imgViewHand.rotateToDegrees(rotationDegreesArray[showcaseViewArray.indexOf(previousShowcaseView)!])
@@ -321,6 +336,7 @@ public class ShowcaseOverlay: UIView {
                     
                     previousShowcaseView.hidden = false
                     previousShowcaseView.showSubViewsWithAnimation()
+                    imgViewTouch[index - 1].userInteractionEnabled = true
                     if index == 1 {
                         btnPrevious.hidden = true
                         imgViewBack.hidden = true
@@ -366,6 +382,13 @@ public class ShowcaseOverlay: UIView {
 
     }
     
+    func getGesture() -> UIGestureRecognizer {
+        let singleTap = UITapGestureRecognizer(target: self, action: #selector(ShowcaseOverlay.onNextButtonTapped))
+        singleTap.numberOfTapsRequired = 1
+        singleTap.numberOfTouchesRequired = 1
+        return singleTap
+    }
+    
     //Inverted axis effect
     func calculateNewYValueOfHand(degrees:CGFloat) -> CGFloat{
         let cosinus = cos(degrees)
@@ -385,6 +408,8 @@ public class ShowcaseOverlay: UIView {
         print("Y: \(newYValue)")
         return newYValue
     }
+    
+    
     
     //Inverted axis effect
     func calculateNewXValueOfHand(degrees:CGFloat) -> CGFloat{

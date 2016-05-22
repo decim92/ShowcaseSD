@@ -41,13 +41,13 @@ extension UIView {
     }
     
     // TODO:
-    func moveHorizontally(){
+    func moveHorizontally(centerA:CGPoint, centerB:CGPoint){
         let animation = CABasicAnimation(keyPath: "position")
         animation.duration = 1.0
         animation.repeatCount = Float.infinity
         animation.autoreverses = true
-        animation.fromValue = NSValue(CGPoint: CGPointMake(self.center.x - 50, self.center.y))
-        animation.toValue = NSValue(CGPoint: CGPointMake(self.center.x + 50, self.center.y))
+        animation.fromValue = NSValue(CGPoint: CGPointMake(centerA.x, centerA.y))
+        animation.toValue = NSValue(CGPoint: CGPointMake(centerB.x, centerB.y))
         self.layer.addAnimation(animation, forKey: "position")
     }
     
@@ -80,4 +80,5 @@ extension UIView {
     func degreesToRadians(degrees: CGFloat) -> CGFloat{
         return degrees * CGFloat(M_PI) / 180
     }
+
 }

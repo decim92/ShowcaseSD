@@ -56,10 +56,11 @@ class ShowcaseView: UIView {
     // MARK: focus definition
     
     var imgViewFocus = UIImageView()
+    var imgViewTouch = UIImageView()
     private var region: REGION?
     internal let minRadius: CGFloat = 25
     let highlightThickness:CGFloat = 0.6
-    private var showcaseRect: CGRect?
+    var showcaseRect: CGRect?
     
     var originX:CGFloat?
     var originY:CGFloat?
@@ -298,8 +299,9 @@ class ShowcaseView: UIView {
         UIGraphicsEndImageContext()
         imgViewFocus.alpha = 0.7
         addSubview(imgViewFocus)
-
+        
     }
+
     
     /**
      Show self in a view as parameter.
@@ -351,7 +353,7 @@ class ShowcaseView: UIView {
             if index == 0 {
             } else if index == 1 {
                 subview.alpha = 1.0
-            } else {
+            }else {
                 UIView.animateWithDuration(0.5, delay: 0.5, options:  [], animations: {
                         subview.alpha = 1.0
                     }, completion: nil)
@@ -367,7 +369,7 @@ class ShowcaseView: UIView {
             }
         }
     }
-    
+
 
     internal static func colorHexFromString(colorString: String) -> UIColor {
         let hex = colorString.stringByTrimmingCharactersInSet(NSCharacterSet.alphanumericCharacterSet().invertedSet)
